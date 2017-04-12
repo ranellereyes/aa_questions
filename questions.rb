@@ -23,32 +23,32 @@ class User < ModelBase
     @lname = options['lname']
   end
 
-  def save
-    if @id.nil?
-      QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
-        INSERT INTO
-          users (fname, lname)
-        VALUES
-          (?, ?)
-      SQL
+  # def save
+  #   if @id.nil?
+  #     QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname)
+  #       INSERT INTO
+  #         users (fname, lname)
+  #       VALUES
+  #         (?, ?)
+  #     SQL
+  #
+  #     @id = QuestionsDatabase.instance.last_insert_row_id
+  #   else
+  #     QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
+  #       UPDATE
+  #         users
+  #       SET
+  #         fname = ?, lname = ?
+  #       WHERE
+  #         id = ?
+  #     SQL
+  #   end
+  # end
 
-      @id = QuestionsDatabase.instance.last_insert_row_id
-    else
-      QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @id)
-        UPDATE
-          users
-        SET
-          fname = ?, lname = ?
-        WHERE
-          id = ?
-      SQL
-    end
-  end
-
-  def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM users")
-    data.map { |datum| User.new(datum) }
-  end
+  # def self.all
+  #   data = QuestionsDatabase.instance.execute("SELECT * FROM users")
+  #   data.map { |datum| User.new(datum) }
+  # end
 
   # def self.find_by_id(id)
   #   user = QuestionsDatabase.instance.execute(<<-SQL, id)
@@ -118,10 +118,10 @@ class Question < ModelBase
     @body = options['body']
   end
 
-  def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM questions")
-    data.map { |datum| Question.new(datum) }
-  end
+  # def self.all
+  #   data = QuestionsDatabase.instance.execute("SELECT * FROM questions")
+  #   data.map { |datum| Question.new(datum) }
+  # end
 
 
 
@@ -360,10 +360,10 @@ class Reply < ModelBase
     end
   end
 
-  def self.all
-    data = QuestionsDatabase.instance.execute("SELECT * FROM replies")
-    data.map { |datum| Reply.new(datum) }
-  end
+  # def self.all
+  #   data = QuestionsDatabase.instance.execute("SELECT * FROM replies")
+  #   data.map { |datum| Reply.new(datum) }
+  # end
 
   # def self.find_by_id
   #   reply = QuestionsDatabase.instance.execute(<<-SQL, @id)
